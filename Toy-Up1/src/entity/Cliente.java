@@ -80,12 +80,12 @@ public class Cliente {
 
 
     public String toString() {
-        return "Cliente\n" +
+        return "Perfil\n" +
                 "Nome: " + nome + "\n" +
                 "CPF: " + cpf + "\n" +
                 "Telefone: " + telefone + "\n" +
                 "E-mail: " + email + "\n" +
-                "==Endereço==:\n Rua/ "+endereco.getRua()+"\nCidade/ "+endereco.getCidade()+"\nEstado/ "+endereco.getEstado();
+                "==Endereço==:\n Rua/ "+endereco.getRua()+"\nCidade/ "+endereco.getCidade()+"\nEstado/ "+endereco.getEstado()+"\n";
 
     }
 }

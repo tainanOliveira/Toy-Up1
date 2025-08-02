@@ -6,17 +6,19 @@ public class Produto {
     private Double preco;
     private String categoria;
     private String marca;
+    private Integer idade;
     private String descProduto;
 
     public Produto() {
     }
 
-    public Produto(int idProduto, String nomeProduto, Double preco, String categoria, String marca, String descProduto) {
+    public Produto(int idProduto, String nomeProduto, Double preco, String categoria, String marca, Integer idade, String descProduto) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto;
         this.preco = preco;
         this.categoria = categoria;
         this.marca = marca;
+        this.idade = idade;
         this.descProduto = descProduto;
     }
 
@@ -68,6 +70,18 @@ public class Produto {
         this.descProduto = descProduto;
     }
 
+    public int getIdProduto() {
+        return idProduto;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
     public String toString() {
         return "\n=== Produto ===" +
                 "\nID: " + idProduto +
@@ -75,7 +89,8 @@ public class Produto {
                 "\nPreço: R$ " + String.format("%.2f", preco) +
                 "\nCategoria: " + categoria +
                 "\nMarca: " + marca +
-                "\nDescrição: " + descProduto;
+                "\nDescrição: " + descProduto +
+                "\nIdade: "+idade;
     }
 
 
