@@ -1,5 +1,8 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Cliente {
     private static Integer autoIncremento = 1; // contador global para todos os clientes
 
@@ -78,12 +81,11 @@ public class Cliente {
 
     public String toString() {
         return "Cliente\n" +
-                "ID: " + id + "\n" +
                 "Nome: " + nome + "\n" +
                 "CPF: " + cpf + "\n" +
                 "Telefone: " + telefone + "\n" +
                 "E-mail: " + email + "\n" +
-                "Endereço: " + endereco + "\n" +
-                "Senha: " + senha;
+                "==Endereço==:\n Rua/ "+endereco.getRua()+"\nCidade/ "+endereco.getCidade()+"\nEstado/ "+endereco.getEstado();
+
     }
 }

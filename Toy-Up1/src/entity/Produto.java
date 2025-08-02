@@ -1,7 +1,7 @@
 package entity;
 
 public class Produto {
-    private Long idProduto;
+    private int idProduto;
     private String nomeProduto;
     private Double preco;
     private String categoria;
@@ -11,7 +11,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Long idProduto, String nomeProduto, Double preco, String categoria, String marca, String descProduto) {
+    public Produto(int idProduto, String nomeProduto, Double preco, String categoria, String marca, String descProduto) {
         this.idProduto = idProduto;
         this.nomeProduto = nomeProduto;
         this.preco = preco;
@@ -20,11 +20,11 @@ public class Produto {
         this.descProduto = descProduto;
     }
 
-    public Long getIdProduto() {
+    public int getIdProduto(int id) {
         return idProduto;
     }
 
-    public void setIdProduto(Long idProduto) {
+    public void setIdProduto(int idProduto) {
         this.idProduto = idProduto;
     }
 
@@ -69,13 +69,15 @@ public class Produto {
     }
 
     public String toString() {
-        return "Produto{" +
-                "idProduto=" + idProduto +
-                ", nomeProduto='" + nomeProduto + '\'' +
-                ", preco=" + preco +
-                ", categoria='" + categoria + '\'' +
-                ", marca='" + marca + '\'' +
-                ", descProduto='" + descProduto + '\'' +
-                '}';
+        return "\n=== Produto ===" +
+                "\nID: " + idProduto +
+                "\nNome: " + nomeProduto +
+                "\nPreço: R$ " + String.format("%.2f", preco) +
+                "\nCategoria: " + categoria +
+                "\nMarca: " + marca +
+                "\nDescrição: " + descProduto;
     }
+
+
+
 }

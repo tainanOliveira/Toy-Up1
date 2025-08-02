@@ -1,5 +1,8 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Endereco {
     private String rua;
     private String cidade;
@@ -87,4 +90,5 @@ public class Endereco {
                 ", complemento='" + complemento + '\'' +
                 '}';
     }
+
 }

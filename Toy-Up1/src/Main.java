@@ -1,5 +1,9 @@
 import entity.Cliente;
 import entity.Endereco;
+import entity.Pedido;
+import entity.Produto;
+import service.ClienteService;
+import service.ProdutoService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,76 +11,59 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
-
         ArrayList<Cliente> clientes = new ArrayList<>();
+        ArrayList<Produto> produtos = new ArrayList<>();
+        ProdutoService.novosProdutos(produtos);
+        Boolean cadastrado = false;
 
-        System.out.println("Novo Cliente");
-        novoCliente(clientes);
 
-        for (Cliente c : clientes){
-            System.out.println("\n\n\n"+c);
-        }
-    }
 
-    public static void novoCliente(ArrayList<Cliente> clientes){
-        Scanner entrada = new Scanner(System.in);
+        int escolha;
+        do {
 
-        System.out.print("Nome: ");
-        String nomeCliente = entrada.nextLine();
+            System.out.println(
+                    "\n\n====Toy-Up===\n"+
+                            "Escolha uma Opção\n"+
+                            "1- Cadastrar Usuário\n"+
+                            "2- Categoria\n"+
+                            "3- Produtos em geral \n"+
+                            "4- sugestão\n"+
+                            "5- Perfil\n"+
+                            "6- \n"+
 
-        System.out.print("CPF: ");
-        String cpfCliente = entrada.nextLine();
+                            "7- Sair"
+            );
+            escolha = entrada.nextInt();
 
-        System.out.print("Telefone: ");
-        String telefoneCliente = entrada.nextLine();
 
-        System.out.print("E-mail: ");
-        String emailCliente = entrada.nextLine();
-
-        // Cadastro de Endereço
-        System.out.println("=== Endereço ===");
-        System.out.print("Rua: ");
-        String ruaCliente = entrada.nextLine();
-
-        System.out.print("Cidade: ");
-        String cidadeCliente = entrada.nextLine();
-
-        System.out.print("Estado: ");
-        String estadoCliente = entrada.nextLine();
-
-        System.out.print("CEP: ");
-        String cepCliente = entrada.nextLine();
-
-        System.out.print("Número: ");
-        String numeroCasaCliente = entrada.nextLine();
-
-        System.out.print("Complemento (opcional): ");
-        String complementoCliente = entrada.nextLine();
-
-        // Confirmação de senha
-        String senhaCliente;
-        while (true) {
-            System.out.print("Senha: ");
-            senhaCliente = entrada.nextLine();
-
-            System.out.print("Confirmar senha: ");
-            String confirmarSenha = entrada.nextLine();
-
-            if (senhaCliente.equals(confirmarSenha)) {
+        switch (escolha) {
+            case 1:
+                ClienteService.novoCliente(clientes);
+                 cadastrado = true;
                 break;
-            } else {
-                System.out.println("Senhas não coincidem. Tente novamente!");
-            }
+            case 2:
+                break;
+            case 3:
+                ProdutoService.produtosGeral(produtos);
+                break;
+            case 4:
+                ProdutoService.produtosSugestao(produtos);
+                break;
+            case 5:
+                if (cadastrado){
+                    ClienteService.mostrarCliente(clientes);
+
+                }else {
+                    System.out.println("Cliente não encontrado, se cadastre!");
+                    ClienteService.novoCliente(clientes);
+                }
+                break;
+            default:
+                break;
         }
+        }while(escolha != 7);
 
-        // Criação do endereço e do cliente
-        Endereco endereco = new Endereco(ruaCliente, cidadeCliente, estadoCliente, cepCliente, numeroCasaCliente, complementoCliente);
-        Cliente cliente = new Cliente(nomeCliente, cpfCliente, telefoneCliente, emailCliente, endereco, senhaCliente);
-        clientes.add(cliente);
-
-        System.out.println("Cliente cadastrado com sucesso!");
     }
-
 
 }
 

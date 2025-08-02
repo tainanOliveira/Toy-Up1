@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Pedido {
@@ -60,37 +62,52 @@ public class Pedido {
         this.frete = frete;
     }
 
-
     public String toString() {
         return "Pedido{" +
-                "cliente=" + cliente +
-                ", produtos=" + produtos +
-                ", pagamento=" + pagamento +
-                ", total=" + total +
-                ", frete=" + frete +
-                '}';
+                "\nCliente: " + cliente.getNome() +
+                " | CPF: " + cliente.getCpf() +
+                "\nProdutos: " + produtos +
+                "\nPagamento: " + pagamento +
+                "\nTotal: R$ " + String.format("%.2f", total) +
+                "\nFrete: R$ " + String.format("%.2f", frete) +
+                "\n}";
     }
 
-    public Double calcularTotal() {
-        double soma = 0.0;
-        if (produtos != null) {
-            for (Produto produto : produtos) {
-                soma += produto.getPreco();
-            }
-        }
-        this.total = soma;
-        return total;
-    }
+    public static void CalcularFrete(ArrayList<Cliente> clientes) {
+        HashMap<String, Double> fretePorEstado = new HashMap<>();
+        fretePorEstado.put("AC", 30.0);
+        fretePorEstado.put("AL", 25.0);
+        fretePorEstado.put("AP", 32.0);
+        fretePorEstado.put("AM", 35.0);
+        fretePorEstado.put("BA", 20.0);
+        fretePorEstado.put("CE", 22.0);
+        fretePorEstado.put("DF", 18.0);
+        fretePorEstado.put("ES", 17.0);
+        fretePorEstado.put("GO", 19.0);
+        fretePorEstado.put("MA", 23.0);
+        fretePorEstado.put("MT", 26.0);
+        fretePorEstado.put("MS", 24.0);
+        fretePorEstado.put("MG", 15.0);
+        fretePorEstado.put("PA", 28.0);
+        fretePorEstado.put("PB", 21.0);
+        fretePorEstado.put("PR", 14.0);
+        fretePorEstado.put("PE", 21.0);
+        fretePorEstado.put("PI", 24.0);
+        fretePorEstado.put("RJ", 12.0);
+        fretePorEstado.put("RN", 20.0);
+        fretePorEstado.put("RS", 13.0);
+        fretePorEstado.put("RO", 30.0);
+        fretePorEstado.put("RR", 33.0);
+        fretePorEstado.put("SC", 13.0);
+        fretePorEstado.put("SP", 10.0);
+        fretePorEstado.put("SE", 22.0);
+        fretePorEstado.put("TO", 27.0);
 
-    public Double calculoFrete() {
-        if (total == null) {
-            calcularTotal();
+        for (Cliente cliente : clientes) {
+            String estado = cliente.getEndereco().getEstado().toUpperCase();
+            Double valorFrete = fretePorEstado.getOrDefault(estado, 0.0);
+
+            System.out.println("Estado: " + estado + " - Frete: R$ " + valorFrete);
         }
-        if (total > 120) {
-            frete = 0.0;
-        } else {
-            frete = 60.0;
-        }
-        return frete;
     }
 }
