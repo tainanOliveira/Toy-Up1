@@ -92,6 +92,13 @@ public class Produto {
                 "\nDescrição: " + descProduto +
                 "\nIdade: "+idade;
     }
+    public String produtoCarrinho() {
+        return "\n=== Produto ===" +
+                "\nNome: " + nomeProduto +
+                "\nPreço: R$ " + String.format("%.2f", preco) +
+                "\nCategoria: " + categoria ;
+    }
+
 
 
 

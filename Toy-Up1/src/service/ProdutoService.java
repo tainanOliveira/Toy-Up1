@@ -5,7 +5,7 @@ import entity.Produto;
 import java.util.*;
 
 public class ProdutoService {
-    Produto produtos = new Produto();
+
 
     public  static  void novosProdutos(ArrayList<Produto> produtos){
         produtos.add(new Produto(1, "Carrinho de Controle Remoto", 150.00, "Brinquedos", "FunToys", 6, "Carrinho com controle remoto, alcance de 30 metros"));
@@ -101,6 +101,7 @@ public class ProdutoService {
             System.err.println("Nenhum produto encontrado acima desse preço.");
         }
     }
+
 
 }
 

@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class ClienteService {
 
-    Cliente cliente = new Cliente();
 
     public static void novoCliente(ArrayList<Cliente> clientes) {
         Scanner entrada = new Scanner(System.in);

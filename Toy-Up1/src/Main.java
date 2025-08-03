@@ -3,6 +3,7 @@ import entity.Endereco;
 import entity.Pedido;
 import entity.Produto;
 import service.ClienteService;
+import service.PedidoService;
 import service.ProdutoService;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Produto> produtos = new ArrayList<>();
+        ArrayList<Produto> carrinho = new ArrayList<>();
+
         ProdutoService.novosProdutos(produtos);
         boolean cadastrado = false;
         int categoria,escolha ;
@@ -48,12 +51,18 @@ public class Main {
                 switch (categoria){
                     case 1:
                         ProdutoService.filtrarPorMarca(produtos);
+                        carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
+
                         break;
                     case 2:
                         ProdutoService.filtrarPorIdade(produtos);
+                        carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
+
                         break;
                     case 3:
                         ProdutoService.filtrarPorPrecoMinimo(produtos);
+                        carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
+
                         break;
                     default:
                         System.err.println("Invalido!!");
@@ -61,12 +70,15 @@ public class Main {
                 }
                 break;
             case 3:
-                //Produtos em geral
                 ProdutoService.produtosGeral(produtos);
+                carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
+
                 break;
             case 4:
                 //sugestão
                 ProdutoService.produtosSugestao(produtos);
+                carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
+
                 break;
             case 5:
                 // Perfil
@@ -88,10 +100,25 @@ public class Main {
                 break;
             case 6:
                 //Pedido
+
+
+
+
+
+
+
+
                 break;
 
             case 7:
-                //Carrinho
+                //Carrinh
+               PedidoService.listaProdutoCarrinho(carrinho);
+                System.out.println("Finalizar pedido?");
+                String finalizarPedido = entrada.next();
+                if (finalizarPedido.toLowerCase().equals("s") || finalizarPedido.toLowerCase().equals("sim")){
+
+
+                    }
 
                 break;
             default:

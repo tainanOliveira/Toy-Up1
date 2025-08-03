@@ -5,7 +5,7 @@ import entity.Endereco;
 import java.util.Scanner;
 
 public class EnderecoService {
-    Endereco endereco = new Endereco();
+
     public static Endereco novoEndereco() {
         Scanner entrada = new Scanner(System.in);
 
