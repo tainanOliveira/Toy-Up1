@@ -1,7 +1,6 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 
 public class Endereco {
     private String rua;
@@ -81,14 +80,13 @@ public class Endereco {
 
 
     public String toString() {
-        return "Endereco{" +
-                "rua='" + rua + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", estado='" + estado + '\'' +
-                ", cep='" + cep + '\'' +
-                ", numero='" + numero + '\'' +
-                ", complemento='" + complemento + '\'' +
-                '}';
+        return "Endereço \n" +
+                "  Rua: '" + rua + "',\n" +
+                "  Número: '" + numero + "',\n" +
+                "  Complemento: '" + complemento + "',\n" +
+                "  Cidade: '" + cidade + "',\n" +
+                "  Estado: '" + estado + "',\n" +
+                "  CEP: '" + cep + "'\n";
     }
 
 }

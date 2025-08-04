@@ -12,10 +12,11 @@ public class Main {
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Produto> produtos = new ArrayList<>();
         ArrayList<Produto> carrinho = new ArrayList<>();
-        Pedido pedido = null;
+        Pedido pedidoAtual = null;
 
         ProdutoService.novosProdutos(produtos);
         boolean cadastrado = false;
+        boolean carrinhoFinalizado = false;
         int categoria,escolha ;
 
         do {
@@ -50,17 +51,18 @@ public class Main {
                     case 1:
                         ProdutoService.filtrarPorMarca(produtos);
                         carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
+                        carrinhoFinalizado = false;
 
                         break;
                     case 2:
                         ProdutoService.filtrarPorIdade(produtos);
                         carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
-
+                        carrinhoFinalizado = false;
                         break;
                     case 3:
                         ProdutoService.filtrarPorPrecoMinimo(produtos);
                         carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
-
+                        carrinhoFinalizado = false;
                         break;
                     default:
                         System.err.println("Invalido!!");
@@ -70,13 +72,13 @@ public class Main {
             case 3:
                 ProdutoService.produtosGeral(produtos);
                 carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
-
+                carrinhoFinalizado = false;
                 break;
             case 4:
                 //sugestão
                 ProdutoService.produtosSugestao(produtos);
                 carrinho.addAll(PedidoService.selecionarProdutosParaPedido(produtos));
-
+                carrinhoFinalizado = false;
                 break;
             case 5:
                 // Perfil
@@ -99,10 +101,10 @@ public class Main {
             case 6:
                 //Pedido]
 
-                if (pedido != null) {
-                    System.out.println(pedido);
-                    System.out.println("Total: "+pedido.calcularTotal(carrinho));
-                    System.out.println("Frete: "+pedido.calcularFrete(clientes));
+                if (pedidoAtual != null) {
+                    System.out.println(pedidoAtual);
+                    System.out.println("Total: "+pedidoAtual.calcularTotal(carrinho));
+                    System.out.println("Frete: "+pedidoAtual.calcularFrete(clientes));
                     }else {
                     System.out.println("Nenhum Pedido feito");
                 }
@@ -110,33 +112,45 @@ public class Main {
                 break;
 
             case 7:
-                //Carrinho
                 if (cadastrado) {
-                    PedidoService.listaProdutoCarrinho(carrinho);
+                    if (!carrinho.isEmpty()) {
 
-                    System.out.println("Finalizar pedido? (s/n)");
-                    String finalizarPedido = entrada.next().toLowerCase();
+                        if (carrinhoFinalizado) {
+                            System.out.println("Você já finalizou este pedido.");
+                            System.out.println("Adicione novos produtos para poder finalizar novamente.");
+                            break;
+                        }
+                        // Lista os produtos no carrinho
+                        PedidoService.listaProdutoCarrinho(carrinho);
 
-                    if (finalizarPedido.equals("s") || finalizarPedido.equals("sim")) {
-                         pedido = PedidoService.cadastrarPedido(carrinho, clientes);
-                        if (pedido != null) {
-                            System.out.println("Pedido realizado com sucesso:");
-                            System.out.println(pedido);
-                            System.out.println("Total: "+pedido.calcularTotal(carrinho));
-                            System.out.println("Frete: "+pedido.calcularFrete(clientes));
-                            carrinho.clear(); // limpa carrinho após o pedido
+                        System.out.println("Finalizar pedido? (s/n)");
+                        String finalizarPedido = entrada.next().toLowerCase();
+
+                        if (finalizarPedido.equals("s") || finalizarPedido.equals("sim")) {
+                            pedidoAtual = PedidoService.cadastrarPedido(carrinho, clientes);
+
+                            if (pedidoAtual != null) {
+                                System.out.println("Pedido realizado com sucesso:");
+                                System.out.println(pedidoAtual);
+                                System.out.println("Total: " + pedidoAtual.calcularTotal(carrinho));
+                                System.out.println("Frete: " + pedidoAtual.calcularFrete(clientes));
+                                carrinho.clear(); // Limpa o carrinho após o pedido
+                                carrinhoFinalizado = true;
+
+                            } else {
+                                System.err.println("Falha ao cadastrar pedido.");
+                            }
                         } else {
-                            System.err.println("Falha ao cadastrar pedido.");
+                            System.out.println("Pedido não finalizado.");
                         }
                     } else {
-                        System.out.println("Pedido não finalizado.");
+                        System.out.println("Carrinho está vazio.");
                     }
                 } else {
                     System.out.println("Usuário não encontrado. Realize o cadastro.");
                     ClienteService.novoCliente(clientes);
                     cadastrado = true;
                 }
-
                 break;
             default:
                 System.err.println("Invalido!!");

@@ -76,6 +76,6 @@ public class PedidoService {
 
         Pagamento pagamento = new Pagamento(tipo);
 
-        return new Pedido(cliente, carrinho, pagamento);
+        return new Pedido(cliente, new ArrayList<>(carrinho), pagamento);
     }
 }

@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Cliente {
     private static Integer autoIncremento = 1; // contador global para todos os clientes

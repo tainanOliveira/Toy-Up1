@@ -50,51 +50,52 @@ public class ClienteService {
         for (Cliente cliente : clientes){
             System.out.println(cliente);}
     }
-    public  static void alterarCliente(ArrayList<Cliente> clientes){
+    public static void alterarCliente(ArrayList<Cliente> clientes) {
         Scanner entrada = new Scanner(System.in);
 
-
-        for (Cliente cliente : clientes) {
-            System.out.println("== Alteração de Usuário ==");
-
-            System.out.print("Novo nome: ");
-            String nomeCliente = entrada.nextLine();
-            cliente.setNome(nomeCliente);
-
-            System.out.print("Novo CPF: ");
-            String cpfCliente = entrada.nextLine();
-            cliente.setCpf(cpfCliente);
-
-            System.out.print("Novo telefone: ");
-            String telefoneCliente = entrada.nextLine();
-            cliente.setTelefone(telefoneCliente);
-
-            System.out.print("Novo e-mail: ");
-            String emailCliente = entrada.nextLine();
-            cliente.setEmail(emailCliente);
-
-            System.out.println("== Alterar Endereço ==");
-            Endereco novoEndereco = EnderecoService.novoEndereco();
-            cliente.setEndereco(novoEndereco);
-
-            while (true) {
-                System.out.print("Nova senha: ");
-                String senha = entrada.nextLine();
-
-                System.out.print("Confirmar nova senha: ");
-                String confirmarSenha = entrada.nextLine();
-
-                if (senha.equals(confirmarSenha)) {
-                    cliente.setSenha(senha);
-                    break;
-                } else {
-                    System.out.println("Senhas não coincidem. Tente novamente!");
-                }
-            }
-
-            System.out.println("Usuário alterado com sucesso!\n");
+        if (clientes.isEmpty()) {
+            System.out.println("Nenhum cliente cadastrado.");
+            return;
         }
 
-    }
+        Cliente cliente = clientes.get(0); // Pega o único cliente existente
 
+        System.out.println("== Alteração de Usuário ==");
+
+        System.out.print("Novo nome: ");
+        String nomeCliente = entrada.nextLine();
+        cliente.setNome(nomeCliente);
+
+        System.out.print("Novo CPF: ");
+        String cpfCliente = entrada.nextLine();
+        cliente.setCpf(cpfCliente);
+
+        System.out.print("Novo telefone: ");
+        String telefoneCliente = entrada.nextLine();
+        cliente.setTelefone(telefoneCliente);
+
+        System.out.print("Novo e-mail: ");
+        String emailCliente = entrada.nextLine();
+        cliente.setEmail(emailCliente);
+
+        System.out.println("== Alterar Endereço ==");
+        EnderecoService.alterarEndereco(cliente.getEndereco());
+
+        while (true) {
+            System.out.print("Nova senha: ");
+            String senha = entrada.nextLine();
+
+            System.out.print("Confirmar nova senha: ");
+            String confirmarSenha = entrada.nextLine();
+
+            if (senha.equals(confirmarSenha)) {
+                cliente.setSenha(senha);
+                break;
+            } else {
+                System.out.println("Senhas não coincidem. Tente novamente!");
+            }
+        }
+
+        System.out.println("Usuário alterado com sucesso!\n");
+    }
 }

@@ -11,8 +11,6 @@ public class Pedido {
     private Cliente cliente;
     private List<Produto> produtos;
     private Pagamento pagamento;
-    private static Double total;
-    private Double frete;
 
     public Pedido() {
     }
@@ -23,13 +21,7 @@ public class Pedido {
         this.pagamento = pagamento;
     }
 
-    public Pedido(Cliente cliente, List<Produto> produtos, Pagamento pagamento, Double total, Double frete) {
-        this.cliente = cliente;
-        this.produtos = produtos;
-        this.pagamento = pagamento;
-        this.total = total;
-        this.frete = frete;
-    }
+
 
     public Cliente getCliente() {
         return cliente;
@@ -55,28 +47,14 @@ public class Pedido {
         this.pagamento = pagamento;
     }
 
-    public Double getTotal() {
-        return total;
-    }
 
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public Double getFrete() {
-        return frete;
-    }
-
-    public void setFrete(Double frete) {
-        this.frete = frete;
-    }
 
     public String toString() {
-        return "Pedido{" +
-                "\nCliente: " + cliente.getNome() +
-                " | CPF: " + cliente.getCpf() +
-                "\nProdutos: " + produtos +
-                "\nPagamento: " + pagamento.toString();
+        return "==Informação do Pedido==" +
+                "\nNome: " + cliente.getNome() +
+                " | CPF: " + cliente.getCpf()+
+                "\n" + produtos +
+                "\n" + pagamento.toString();
 
     }
     public  double calcularTotal(ArrayList<Produto> carrinho) {
@@ -123,7 +101,7 @@ public class Pedido {
         for (Cliente cliente : clientes) {
             String estado = cliente.getEndereco().getEstado().toUpperCase();
             frete = fretePorEstado.getOrDefault(estado, 0.0);
-            break; // Pega só o primeiro cliente da lista
+            break;
         }
 
         return frete;

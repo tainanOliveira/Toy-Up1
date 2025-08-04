@@ -21,8 +21,6 @@ public class Pagamento {
 
 
     public String toString() {
-        return "Pagamento{" +
-                "tipo=" + tipo +
-                '}';
+        return "Pagamento: " +tipo;
     }
 }
