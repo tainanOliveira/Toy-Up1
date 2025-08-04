@@ -1,9 +1,6 @@
 package service;
 
-import entity.Cliente;
-import entity.Pagamento;
-import entity.Pedido;
-import entity.Produto;
+import entity.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -54,11 +51,31 @@ public class PedidoService {
 
 
     }
-    public static Pedido cadastrarPedido(ArrayList<Produto> carrinho, ArrayList<Cliente> clientes, Pagamento pagamento){
+    public static Pedido cadastrarPedido(ArrayList<Produto> carrinho, ArrayList<Cliente> clientes) {
+        Scanner entrada = new Scanner(System.in);
+        Cliente cliente = clientes.get(0);
 
+        // Escolher pagamento
+        System.out.println("Escolha o tipo de pagamento:");
+        System.out.println("1 - CRÉDITO");
+        System.out.println("2 - DÉBITO");
+        System.out.println("3 - PIX");
 
+        int opcao = entrada.nextInt();
+        TipoPagamento tipo = null;
 
-        return new Pedido();
+        switch (opcao) {
+            case 1 -> tipo = TipoPagamento.CREDITO;
+            case 2 -> tipo = TipoPagamento.DEBITO;
+            case 3 -> tipo = TipoPagamento.PIX;
+            default -> {
+                System.err.println("Tipo de pagamento inválido!");
+                return null;
+            }
+        }
+
+        Pagamento pagamento = new Pagamento(tipo);
+
+        return new Pedido(cliente, carrinho, pagamento);
     }
-
 }

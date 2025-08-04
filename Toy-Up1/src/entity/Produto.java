@@ -2,9 +2,9 @@ package entity;
 
 public class Produto {
     private int idProduto;
-    private String nomeProduto;
-    private Double preco;
-    private String categoria;
+    private  String nomeProduto;
+    private  Double preco;
+    private  String categoria;
     private String marca;
     private Integer idade;
     private String descProduto;
@@ -92,6 +92,7 @@ public class Produto {
                 "\nDescrição: " + descProduto +
                 "\nIdade: "+idade;
     }
+
     public String produtoCarrinho() {
         return "\n=== Produto ===" +
                 "\nNome: " + nomeProduto +

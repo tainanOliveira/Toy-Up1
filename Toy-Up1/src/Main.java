@@ -1,7 +1,4 @@
-import entity.Cliente;
-import entity.Endereco;
-import entity.Pedido;
-import entity.Produto;
+import entity.*;
 import service.ClienteService;
 import service.PedidoService;
 import service.ProdutoService;
@@ -15,6 +12,7 @@ public class Main {
         ArrayList<Cliente> clientes = new ArrayList<>();
         ArrayList<Produto> produtos = new ArrayList<>();
         ArrayList<Produto> carrinho = new ArrayList<>();
+        Pedido pedido = null;
 
         ProdutoService.novosProdutos(produtos);
         boolean cadastrado = false;
@@ -32,7 +30,7 @@ public class Main {
                             3- Produtos em geral\s
                             4- sugestão
                             5- Perfil
-                            6- Pedido
+                            6- Pedidos
                             7- Carrinho
                             8- Sair"""
             );
@@ -41,7 +39,7 @@ public class Main {
         switch (escolha) {
             case 1:
                 //Cadastrar Usuário
-                ClienteService.novoCliente(clientes);
+                 ClienteService.novoCliente(clientes);
                  cadastrado = true;
                 break;
             case 2:
@@ -96,29 +94,48 @@ public class Main {
                 } else {
                     System.out.println("Usuário não encontrado. Realize o cadastro.");
                     ClienteService.novoCliente(clientes);
-                }
+                           }
                 break;
             case 6:
-                //Pedido
+                //Pedido]
 
-
-
-
-
-
-
+                if (pedido != null) {
+                    System.out.println(pedido);
+                    System.out.println("Total: "+pedido.calcularTotal(carrinho));
+                    System.out.println("Frete: "+pedido.calcularFrete(clientes));
+                    }else {
+                    System.out.println("Nenhum Pedido feito");
+                }
 
                 break;
 
             case 7:
-                //Carrinh
-               PedidoService.listaProdutoCarrinho(carrinho);
-                System.out.println("Finalizar pedido?");
-                String finalizarPedido = entrada.next();
-                if (finalizarPedido.toLowerCase().equals("s") || finalizarPedido.toLowerCase().equals("sim")){
+                //Carrinho
+                if (cadastrado) {
+                    PedidoService.listaProdutoCarrinho(carrinho);
 
+                    System.out.println("Finalizar pedido? (s/n)");
+                    String finalizarPedido = entrada.next().toLowerCase();
 
+                    if (finalizarPedido.equals("s") || finalizarPedido.equals("sim")) {
+                         pedido = PedidoService.cadastrarPedido(carrinho, clientes);
+                        if (pedido != null) {
+                            System.out.println("Pedido realizado com sucesso:");
+                            System.out.println(pedido);
+                            System.out.println("Total: "+pedido.calcularTotal(carrinho));
+                            System.out.println("Frete: "+pedido.calcularFrete(clientes));
+                            carrinho.clear(); // limpa carrinho após o pedido
+                        } else {
+                            System.err.println("Falha ao cadastrar pedido.");
+                        }
+                    } else {
+                        System.out.println("Pedido não finalizado.");
                     }
+                } else {
+                    System.out.println("Usuário não encontrado. Realize o cadastro.");
+                    ClienteService.novoCliente(clientes);
+                    cadastrado = true;
+                }
 
                 break;
             default:

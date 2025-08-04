@@ -4,14 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+
+
 public class Pedido {
     private Cliente cliente;
     private List<Produto> produtos;
     private Pagamento pagamento;
-    private Double total;
+    private static Double total;
     private Double frete;
 
     public Pedido() {
+    }
+
+    public Pedido(Cliente cliente, List<Produto> produtos, Pagamento pagamento) {
+        this.cliente = cliente;
+        this.produtos = produtos;
+        this.pagamento = pagamento;
     }
 
     public Pedido(Cliente cliente, List<Produto> produtos, Pagamento pagamento, Double total, Double frete) {
@@ -67,13 +76,19 @@ public class Pedido {
                 "\nCliente: " + cliente.getNome() +
                 " | CPF: " + cliente.getCpf() +
                 "\nProdutos: " + produtos +
-                "\nPagamento: " + pagamento +
-                "\nTotal: R$ " + String.format("%.2f", total) +
-                "\nFrete: R$ " + String.format("%.2f", frete) +
-                "\n}";
+                "\nPagamento: " + pagamento.toString();
+
+    }
+    public  double calcularTotal(ArrayList<Produto> carrinho) {
+        double total = 0;
+        for (Produto produto : carrinho) {
+            total += produto.getPreco();
+        }
+        return total;
     }
 
-    public static void CalcularFrete(ArrayList<Cliente> clientes) {
+
+    public  Double calcularFrete(ArrayList<Cliente> clientes) {
         HashMap<String, Double> fretePorEstado = new HashMap<>();
         fretePorEstado.put("AC", 30.0);
         fretePorEstado.put("AL", 25.0);
@@ -103,11 +118,15 @@ public class Pedido {
         fretePorEstado.put("SE", 22.0);
         fretePorEstado.put("TO", 27.0);
 
+        Double frete = 0.0;
+
         for (Cliente cliente : clientes) {
             String estado = cliente.getEndereco().getEstado().toUpperCase();
-            Double valorFrete = fretePorEstado.getOrDefault(estado, 0.0);
-
-            System.out.println("Estado: " + estado + " - Frete: R$ " + valorFrete);
+            frete = fretePorEstado.getOrDefault(estado, 0.0);
+            break; // Pega só o primeiro cliente da lista
         }
+
+        return frete;
     }
+
 }
